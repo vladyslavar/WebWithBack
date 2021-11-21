@@ -11,6 +11,7 @@ function main()
     
 }
 
+
 function SetChoosen(value)
 {
     choosenValue = value;
@@ -32,14 +33,6 @@ function SaveAmount()
         input.className = str;
         toAppend.appendChild(input);
         texts[i] = input;
-
-        var but = document.createElement("button");
-        but.innerText="Save";
-        var butName = "textButton"+i;
-        but.className = butName;
-        toAppend.appendChild(but);
-        buttons[i]=but;
-
         var someBr = document.createElement("br");
         var brName = "br"+i;
         someBr.className = brName;
@@ -50,26 +43,22 @@ function SaveAmount()
         but2.innerText="Execute";
         var butName2 = "executeButton";
         but2.className = butName2;
-        but2.onclick = () => CreateBlock(notifications);
+        but2.onclick = () => OnClickFunc();
         toAppend.appendChild(but2);
 
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => OnClickFunc(btn));
-    })
 }
 
-function OnClickFunc(but)
+function OnClickFunc()
 {
     var str;
-    for(j = 0; j<buttons.length; j++)
+    for(j = 0; j<texts.length; j++)
     {
-        if(buttons[j] == but)
-        {
-            str = texts[j].value;
-            console.log(str);
-            SaveText(str, j);
-        }
+        str = texts[j].value;
+        console.log(str);
+        SaveText(str, j);
+
     }
+    CreateBlock(notifications)
 }
 function SaveText(data, num)
 {
@@ -80,29 +69,31 @@ function SaveText(data, num)
     console.log(notifications);
 }
 
-function CreateBlock(notifications)
+function CreateBlock(notification)
 {
+    console.log(notification)
+
     ClearFields();
-    console.log(notifications);
+    console.log(notification);
     DeleteFromDB();
-    notifications = notifications.reverse();
-    for(i = 0; i < notifications.length; i++)
+    notification = notification.reverse();
+    for(i = 0; i < notification.length; i++)
     {
-        if(notifications[i] != null)
+        if(notification[i] != null)
         {
-            SendToDB(notifications[i], i);
-            var div = document.createElement("div");
+            SendToDB(notification[i], i);
+            /*var div = document.createElement("div");
             div.className = "notificationBlock"+i;
             div.innerText = notifications[i];
             var prependBlock = document.getElementsByClassName("main-block")[0];
             prependBlock.prepend(div);
-            notifFields[i] = div;
+            notifFields[i] = div;*/
         }
     }
 }
 function DeleteFromDB()
 {
-    var url = "https://localhost:44336/api/notification/deleteall";
+    var url = "http://3.16.158.180/api/notification/deleteall";
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", url);
 
@@ -117,9 +108,9 @@ function DeleteFromDB()
 }
 function SendToDB(text, order)
 {
-    var url = "https://localhost:44336/api/notification/posttext/"+text+"/"+order;
+    var url = "http://3.16.158.180/api/notification/posttext/"+text+"/"+order;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
+    xhr.open("POST", url, false);
 
     xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -149,13 +140,6 @@ function ClearFields()
             toAppend.removeChild(element2) 
          });
          brs = [];
-    }
-    if(buttons.length != 0)
-    {
-        buttons.forEach(element1 => {
-            toAppend.removeChild(element1)
-        });
-        buttons = [];
     }
     if(toAppend.getElementsByClassName("executeButton").length != 0)
     {

@@ -3,9 +3,14 @@ window.onload = main
 var notifFields = [];
 function main()
 {
+    GetData()
+}
+
+function GetData()
+{
     var receivedTexts = [];
     var resp;
-    var url = "https://localhost:44336/api/notification/gettext";
+    var url = "http://3.16.158.180/api/notification/gettext";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -14,6 +19,7 @@ function main()
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             console.log(xhr.status);
+            console.log(xhr.responseText);
             resp = xhr.response;
             var objs = JSON.parse(resp);
             objs.forEach(element => {
