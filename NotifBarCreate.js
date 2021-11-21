@@ -93,7 +93,7 @@ function CreateBlock(notification)
 }
 function DeleteFromDB()
 {
-    var url = "http://3.16.158.180/api/notification/deleteall";
+    var url = "https://gelder.ga/api/notification/deleteall";
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", url);
 
@@ -108,7 +108,7 @@ function DeleteFromDB()
 }
 function SendToDB(text, order)
 {
-    var url = "http://3.16.158.180/api/notification/posttext/"+text+"/"+order;
+    var url = "https://gelder.ga/api/notification/posttext/"+text+"/"+order;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
 

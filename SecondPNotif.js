@@ -10,7 +10,7 @@ function GetData()
 {
     var receivedTexts = [];
     var resp;
-    var url = "http://3.16.158.180/api/notification/gettext";
+    var url = "https://gelder.ga/api/notification/gettext";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
