@@ -93,6 +93,7 @@ function CreateBlock(notification)
 }
 function DeleteFromDB()
 {
+    //var url = "https://localhost:44336/api/notification/deleteall";
     var url = "https://gelder.ga/api/notification/deleteall";
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", url);
@@ -108,9 +109,10 @@ function DeleteFromDB()
 }
 function SendToDB(text, order)
 {
+    //var url = "https://localhost:44336/api/notification/posttext/"+text+"/"+order;
     var url = "https://gelder.ga/api/notification/posttext/"+text+"/"+order;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, false);
+    xhr.open("POST", url);
 
     xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
